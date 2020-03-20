@@ -1,0 +1,105 @@
+body{
+text-align: center;
+align-items: center;
+align-content: center;
+align-self: center;
+background: url(../img/t05.png);
+}
+
+#backcalc{
+    width: 370px;
+    height: 500px;
+    flex-direction: column;
+    display: inline-block;
+    background: url(../img/t08.png);
+    margin-top: 150px;
+    border-radius: 10px;
+}
+
+#calculator{
+    width: 370px;
+    height: 500px;
+    flex-direction: column;
+    display: inline-block;
+    background-color: rgba(0, 0, 255, 0.432);
+    border-radius: 10px;
+}
+
+#opLine{
+    display: block;
+    width: 330px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.527);
+    font-size: 20px;
+    text-align: right;
+    letter-spacing: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    line-height: 60px;
+    
+
+}
+#resLine{
+    display: block;
+    width: 330px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.61);
+    font-size: 30px;
+    text-align: right;
+    letter-spacing: 0px;
+    margin-top: 2px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    line-height: 55px;
+
+
+}
+
+#button1,
+#button2,
+#button3,
+#button4,
+#button5,
+#button6,
+#button7,
+#button8,
+#button9,
+#button0,
+#buttonDot
+{
+    background-color: rgba(128, 0, 128, 0.507);
+    border-radius: 5px;
+    width: 80px;
+    height: 80px;
+    color: white;
+}
+
+#buttonClear,
+#buttonPN,
+#buttonPer,
+#buttonP,
+#buttonR,
+#buttonD,
+#buttonM,
+#buttonBack,
+#buttonEq{
+    background-color: rgba(0, 0, 0, 0.589);
+    border-radius: 5px;
+    width: 80px;
+    height: 80px;
+    color: white;
+
+}
+
+
+
+#numbers{
+    display: inline-block;
+    width: 340px;
+height: 600px;
+margin-top: 5px;
+}
+
