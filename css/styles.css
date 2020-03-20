@@ -94,12 +94,10 @@ background: url(../img/t05.png);
 
 }
 
-
-
 #numbers{
     display: inline-block;
     width: 340px;
-height: 600px;
-margin-top: 5px;
+    height: 1px;
+    margin-top: 5px;
 }
 
