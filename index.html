@@ -9,58 +9,88 @@
 
 </head>
 <body>
+
+    <div id="main">
+        <h1>Cyber Calc</h1>
+    </div>
+    <button id="show">Show Key Info</button>
+
+
+    <div id="keys" style="display: none;">
+        <p id="p1"><h2>Keys</h2></p>
+        <ul>
+            <li>Backspace:</li>
+            <li>Clear:</li>
+            <li>Equal:</li>
+            <li>Numbers:</li>
+            <li>Addition:</li>
+            <li>Subtraction:</li>
+            <li>Multiplication:</li>
+            <li>Division:</li>
+            <li>Power:</li>
+            <li>Dot:</li>
+
+        </ul>
+        <ul>
+            <li>letter " B "</li>
+            <li>letter " C "</li>
+            <li>Keys "Enter" or " = "</li>
+            <li>Numeric keys</li>
+            <li>key " + "</li>
+            <li>key " - "</li>
+            <li>key " * "</li>
+            <li>key " / "</li>
+            <li>key " ^ "</li>
+            <li>key " . "</li>
+
+        </ul>
+        
+            <button id="hide">Hide Key info</button>
+        
+    </div>
+
+
     <div id="backcalc">
 
         <div id="calculator">
+        
+            <div id="numbers">
 
+                <p id="opLine"></p>
+                    
+                <p id="resLine"></p>
             
-                <div id="numbers">
+                <button data-key="67" class="buttons" id="buttonClear">C</button>
+                <button data-key="80" class="buttons" id="buttonPer">^</button>
+                <button data-key="106" class="buttons" id="buttonM">*</button>
+                <button data-key="8" class="buttons" id="buttonBack">BS</button>
 
-                    <p id="opLine"></p>
-                        
-                    <p id="resLine"></p>
-                
-
-                    <button class="buttons" id="buttonClear">C</button>
-                    <button class="buttons" id="buttonPer">^</button>
-                    <button class="buttons" id="buttonM">*</button>
-                    <button class="buttons" id="buttonBack">BS</button>
-
-
-                
-                    <button class="buttons" id="button7">7</button>
-                    <button class="buttons" id="button8">8</button>
-                    <button class="buttons" id="button9">9</button>
-                    <button class="buttons" id="buttonP">+</button>
-
-                
-                    <button class="buttons" id="button4">4</button>
-                    <button class="buttons" id="button5">5</button>
-                    <button class="buttons" id="button6">6</button>
-                    <button class="buttons" id="buttonR">-</button>
-
-                
-                    <button class="buttons" id="button1">1</button>
-                    <button class="buttons" id="button2">2</button>
-                    <button class="buttons" id="button3">3</button>
-                    <button class="buttons" id="buttonD">/</button>
-
-
+                <button data-key="103" class="buttons" id="button7">7</button>
+                <button data-key="104" class="buttons" id="button8">8</button>
+                <button data-key="105" class="buttons" id="button9">9</button>
+                <button data-key="107" class="buttons" id="buttonP">+</button>
             
-                    <button class="buttons" id="button0">0</button>
-                    <button class="buttons" id="buttonDot">.</button>
-                    <button class="buttons" id="buttonPN">+/-</button>
+                <button data-key="100" class="buttons" id="button4">4</button>
+                <button data-key="101" class="buttons" id="button5">5</button>
+                <button data-key="102" class="buttons" id="button6">6</button>
+                <button data-key="109" class="buttons" id="buttonR">-</button>
+            
+                <button data-key="97" class="buttons" id="button1">1</button>
+                <button data-key="98" class="buttons" id="button2">2</button>
+                <button data-key="99" class="buttons" id="button3">3</button>
+                <button data-key="111" class="buttons" id="buttonD">/</button>
+        
+                <button data-key="96" class="buttons" id="button0">0</button>
+                <button data-key="110" class="buttons" id="buttonDot">.</button>
+                <button data-key="83" class="buttons" id="buttonPN">NA</button>
 
-                    <button class="buttons" id="buttonEq">=</button>
+                <button data-key="13" class="buttons" id="buttonEq">=</button>
 
+            </div>
 
-                </div>
         </div>
-       
-    </div>
-
     
-
+    </div>
 
     <script type="text/javascript" src="js/calculator.js"></script>
 
