@@ -1,283 +1,354 @@
 "use strict"
 
-
-
 let opLine = document.getElementById("opLine");
 let resLine = document.getElementById("resLine");
 const buttons= document.getElementById("numbers");
 
-
-
-
 //Replace last if it's an operator and we press another operator
-    let operationComplete = false;
-    const last = () => opLine.innerHTML.substring(opLine.innerHTML.length-1)
-
-    opLine.innerHTML=0;
-    resLine.innerHTML=0;
-
+let operationComplete = false;
+const last = () => opLine.innerHTML.substring(opLine.innerHTML.length-1);
+opLine.innerHTML="+";
+resLine.innerHTML=0;
 
 //Write Numbers
-    let typing = text =>{
-        if(opLine.innerHTML == 0) opLine.innerHTML = "";
+let typing = text =>{
+    if(opLine.innerHTML == "+" && text==".") opLine.innerHTML += "0.";
+    if(opLine.innerHTML == "+" && text=="-") opLine.innerHTML == "-";
 
-        if(operationComplete && isNaN(text)){   //*1
-            opLine.innerHTML = resLine.innerHTML;
-            operationComplete = false;
-            console.log(operationComplete);
-        }
-        if(operationComplete && !isNaN(text)){   //*1
-            opLine.innerHTML="";
-            resLine.innerHTML= "0";
-            operationComplete = false;
-            console.log(operationComplete);
-
-        }
-        if(isNaN(last()) && isNaN(text)){
-        opLine.innerHTML=opLine.innerHTML.substring(0,opLine.innerHTML.length-1)
-        }
-     
-        opLine.innerHTML+=text;
+    if(operationComplete && text=="."){
+        opLine.innerHTML = "+.";
+        resLine.innerHTML = "0";
+        operationComplete = false;
     }
 
-
-//Clear all
-    function clear (){   
-        let clean = 0;
-        resLine.innerHTML = clean;
-        opLine.innerHTML = clean;
-        }
-
-
-//Buttons action press
-    buttons.addEventListener("click", e =>{
-        if(e.target.innerHTML !== ""){
-            switch (e.target.innerHTML){
-                case "C":  clear(); break;
-                case "+/-":  changeSign(); break;
-                case "BS":  backSpace(); break;
-                case "=":  ""; break;        //it's empty because its function is in operate() and interfere in *1
-                case ".": dot();
-
-               
-               default: typing(e.target.innerHTML); break;
+    if(operationComplete && isNaN(text)){   //*1
+        //remove comas after operate to operate again
+        let extractComa=[];
+        for(let i=0; i<=resLine.innerHTML.length-1; i++){
+            if(resLine.innerHTML[i]!=","){
+                extractComa.push(resLine.innerHTML[i]);
             }
         }
-    })
+
+        let noComa=extractComa.join("");
+        resLine.innerHTML=noComa;
+        
+        opLine.innerHTML = resLine.innerHTML;
+        operationComplete = false;
+        
+    }
+
+    if(operationComplete && !isNaN(text)){   //*1
+        opLine.innerHTML="+";
+        resLine.innerHTML= "0";
+        operationComplete = false;
+    }
+
+    if(isNaN(last()) && isNaN(text)){
+        opLine.innerHTML=opLine.innerHTML.substring(0,opLine.innerHTML.length-1)
+    }
+    //input character restrictor
+    if(opLine.innerHTML.length>100){
+        text=""
+        opLine.innerHTML+=text;
+    }
+    
+    //REGEX Last number group dot Control
+    let regexEnd=/\W{1}?\d{0,20}\.\d{0,20}$/g;
+    let resultEnd= regexEnd.test(opLine.innerHTML);
+    
+    if(resultEnd && text=="."){
+        opLine.innerHTML;
+    }else{
+        opLine.innerHTML+=text;
+    }
+}
+
+//Clear Function
+function clear (){   
+    let clean = "+";
+    resLine.innerHTML = 0;
+    opLine.innerHTML = clean;
+}
+
+//Buttons action press
+buttons.addEventListener("click", e =>{
+    if(e.target.innerHTML !== ""){
+        switch (e.target.innerHTML){
+            case "C":  clear(); 
+            break;
+            case "+/-":  changeSign(); 
+            break;
+            case "BS":  backSpace(); 
+            break;
+            case "=":  "";  //it's empty because we don't want to write it in the opLine
+            break;       
+            case ".": dot();
+            default: typing(e.target.innerHTML); 
+            break;
+        }
+    }
+})
 
 
 // Keys control
-    let buttons2 = document.getElementsByClassName("buttons");
-    console.log(buttons2);
-    let array_de_strings = [];
+let buttons2 = document.getElementsByClassName("buttons");
+let array_de_strings = [];
 
-    for (var i = 0; i < buttons2.length; i++) {
-        console.log(buttons2[i].textContent);
-        array_de_strings.push(buttons2[i].textContent);
+for (var i = 0; i < buttons2.length; i++) {
+    array_de_strings.push(buttons2[i].textContent);
+}
+
+let newarray=array_de_strings.join(', ');
+
+function playkey(e){
+    let key2=String.fromCharCode(e.keyCode);
+    let busqueda = array_de_strings.find(element=> element == key2);
+
+    if(busqueda !== undefined){
+        switch (busqueda){
+            case "C":  clear(); 
+            break;
+            case "+/-":  changeSign(); 
+            break;
+            case "BS":  backSpace(); 
+            break;
+            case "=":  "";   //it's empty because its function is in operate() and interfere in *1
+            break;        
+            case ".": dot2();
+            default: typing(busqueda); 
+            break;
+        }
     }
 
-    let newarray=array_de_strings.join(', ');
-    console.log(newarray);
-    console.log(array_de_strings);
-
-    function playkey(e){
-        let key2=String.fromCharCode(event.keyCode);
-        let busqueda = array_de_strings.find(element=> element == key2);
-        console.log(busqueda);
-        console.log(key2);
-        console.log(event.keyCode);
-
-        if(busqueda !== undefined){
-            switch (busqueda){
-                case "C":  clear(); break;
-                case "+/-":  changeSign(); break;
-                case "BS":  backSpace(); break;
-                case "=":  ""; break;        //it's empty because its function is in operate() and interfere in *1
-                case ".": dot2();
-                default: typing(busqueda); break;
-            }
-        }
-        if(event.keyCode=="66"||String.fromCharCode(event.keyCode)=="b"){
-            
-            backSpace()
-            console.log(event.keyCode);
-        }
-        if( String.fromCharCode(event.keyCode)==buttonEq.innerHTML || event.keyCode=="13"){
-        
-            result.innerHTML = calculate(operate(userInput.innerHTML));
-            operationComplete=true; // *1
-            console.log(event.keyCode)
-        }
-        if( String.fromCharCode(event.keyCode)=="c"){
-            clear()
-            
-        }
-      
+    if(e.keyCode=="66"||String.fromCharCode(e.keyCode)=="b"){
+        backSpace();
     }
-    window.addEventListener("keypress",playkey);
-    
+
+    if( String.fromCharCode(e.keyCode)==buttonEq.innerHTML || e.keyCode=="13"){
+        result.innerHTML = calculate(operate(userInput.innerHTML));
+        operationComplete=true; // *1
+    }
+
+    if( String.fromCharCode(e.keyCode)=="c"){
+        clear();
+    }   
+}
+window.addEventListener("keypress",playkey);
+/*window.addEventListener("keyup",playkey);*/
+
 
 // Function Dot Key
-    function dot2(){
-        
-        if (opLine.innerHTML.length > 0) {
-            let lastdig = opLine.innerHTML[opLine.innerHTML.length - 1];
-            console.log(lastdig);
-            let array = opLine.innerHTML.split(' ');
-            console.log(array);
+function dot2(){
     
-            if ( lastdig == '+' || lastdig == '-' || lastdig == '*'|| lastdig == '/'|| lastdig == '^'|| lastdig == '('|| lastdig == ')') {
-                opLine.innerHTML += '0.'
-            } else if (array[array.length - 1].indexOf('.') == -1) {
-                opLine.innerHTML += '.'
-            }
-        
-        } else {
-            opLine.innerHTML += '0.'
-        }
-    
-    }
+    if(opLine.innerHTML.length > 0) {
+        let lastdig = opLine.innerHTML[opLine.innerHTML.length - 1];
+        let array = opLine.innerHTML.split(' ');
 
+        if( lastdig == '+' || lastdig == '-' || lastdig == '*'|| lastdig == '/'|| lastdig == '^'|| lastdig == '('|| lastdig == ')') {
+            opLine.innerHTML += '0.';
+        }else if(array[array.length - 1].indexOf('.') == -1) {
+            opLine.innerHTML += '.';
+        }  
+    
+    }else{
+        opLine.innerHTML += '0.'
+    }
+}
 
 // Function Dot Button       
 function dot(){
     let dot = document.querySelector('#buttonDot');
-    dot.addEventListener('click', () => {
-	if (opLine.innerHTML.length > 0) {
-        let lastdig = opLine.innerHTML[opLine.innerHTML.length - 1];
-        console.log(lastdig);
-        let array = opLine.innerHTML.split(' ');
-        console.log(array);
 
-		if ( lastdig == '+' || lastdig == '-' || lastdig == '*'|| lastdig == '/'|| lastdig == '^'|| lastdig == '('|| lastdig == ')') {
-			opLine.innerHTML += '0.'
-		} else if (array[array.length - 1].indexOf('.') == -1) {
-			opLine.innerHTML += '.'
-		}
-	
-	} else {
-        opLine.innerHTML += '0.'
-    }
-})
+    dot.addEventListener('click', () => {
+        if(opLine.innerHTML.length > 0) {
+            let lastdig = opLine.innerHTML[opLine.innerHTML.length - 1];
+            let array = opLine.innerHTML.split(' ');
+            let regexStart=/^\W{1}?\d{0,20}\.?\d{0,20}/g;
+            let resultS= regexStart.test(opLine.innerHTML);
+            if ( lastdig == '+' || lastdig == '-' || lastdig == '*'|| lastdig == '/'|| lastdig == '^'|| lastdig == '('|| lastdig == ')') {
+                opLine.innerHTML += '0.';
+            } else if (array[array.length - 1].indexOf('.') == -1) {
+                opLine.innerHTML += '.';
+            }else if (resultS) {
+                let array = opLine.innerHTML.split(' ');
+                opLine.innerHTML = array[0];
+            }	
+        }else {
+            opLine.innerHTML += '0.';
+        }
+    });
 }
 
-                      
-//Change Sign +/-
-    const lastValue = () => opLine.innerHTML.substring(opLine.innerHTML.length-1)
-
-    const changeSign=()=>{
-        let lastNumber= "";
-        let position = 0;
-
-        if (!isNaN(lastValue())){
-            for (let i = opLine.innerHTML.length-1; i>0; i--){
-                if(isNaN(opLine.innerHTML[i])){
-                    position = i+1;
-                    break;
-                }
-            } 
-        }
-        lastNumber = opLine.innerHTML.substring(position);
-        opLine.innerHTML=opLine.innerHTML.replace(lastNumber, `( ${lastNumber*-1})`)
-    }
-
-
 //Back Spase
-    function backSpace(){
-        let array= opLine.innerHTML.split("");
-        console.log(array);
-        array.pop();
-        console.log(array);
+function backSpace(){
+    let array= opLine.innerHTML.split("");
+    array.pop();
 
-        let newarray= array.join("");
-        console.log(newarray);
+    let newarray= array.join("");
 
-        opLine.innerHTML=newarray;
-        console.log(opLine.innerHTML);
-    }
-
+    opLine.innerHTML=newarray;
+}
 
 //Main Function whitout eval() method
-    function operate(userV) { 
-        // --- Parse a calculation string into an array of numbers and operators 
-        var calculation = [], current = ''; 
-        for (var i = 0, char1; char1 = userV.charAt(i); i++) {
-            if ('()^*/+-'.indexOf(char1) > -1) {
-                if (current == '' && char1 == '-') {
-                    current = '-'; 
-                    } 
-                else { 
-                    calculation.push(parseFloat(current), char1); 
-                    current = ''; 
-                } 
+function operate(userV) { 
+    //Parse a calculation string into an array of numbers and operators 
+    var calculation = []; 
+    var current = ''; 
+    for(var i = 0, char1; char1 = userV.charAt(i); i++) {
+        if('()^*/+-'.indexOf(char1) > -1) {
+            if(current == '' && char1 == '-') {
+                current = '-'; 
+            }else{ 
+                calculation.push(parseFloat(current), char1); 
+                current = ''; 
             } 
-            else { 
-                current += userV.charAt(i); 
-            } 
+        }else{ 
+            current += userV.charAt(i); 
         } 
-        if (current != '') { 
-                    calculation.push(parseFloat(current)); 
-        } 
-        return calculation;
-    }
-    function calculate(calc) { 
-            // --- Perform a calculation expressed as an array of operators and numbers 
-            var ops = [
-            {'^': (a, b) => Math.pow(a, b)},
-            {'*': (a, b) => a * b, '/': (a, b) => a / b}, 
-            {'+': (a, b) => a + b, '-': (a, b) => a - b}], 
-            newCalc = [], currentOp; 
-            for (var i = 0; i < ops.length; i++) { 
-                for (var j = 0; j < calc.length; j++) { 
-                    if (ops[i][calc[j]]) { 
-                        currentOp = ops[i][calc[j]]; 
-                    } else if (currentOp) { 
-                        newCalc[newCalc.length - 1] = currentOp(newCalc[newCalc.length - 1], calc[j]); 
-                        currentOp = null;
-                    } else { 
-                        newCalc.push(calc[j]); 
-                    } 
-                    console.log(newCalc); 
-                } 
-            calc = newCalc; newCalc = []; 
-            } 
-            if (calc.length > 1) { 
-                console.log('Error: unable to resolve calculation'); 
-                return calc; 
-            } else { 
-                return calc[0]; 
-            } 
     } 
+    if(current != '') { 
+        calculation.push(parseFloat(current)); 
+    } 
+console.log(calculation);
+console.log(current);
+    return calculation;
+}
+
+function calculate(calc){ 
+    //Perform a calculation expressed as an array of operators and numbers 
+    var ops = [
+        {'^': (a, b) => Math.pow(a, b)},
+        {'*': (a, b) => a * b, '/': (a, b) => a / b}, 
+        {'+': (a, b) => a + b, '-': (a, b) => a - b}
+        ];
+    var newCalc = [];
+    var currentOp;
+
+    for(var i=0; i<ops.length; i++){ 
+        for(var j = 0; j < calc.length; j++){ 
+            if(ops[i][calc[j]]) { 
+                currentOp = ops[i][calc[j]];
+                
+            }else if(currentOp) { 
+                newCalc[newCalc.length - 1] = currentOp(newCalc[newCalc.length - 1], calc[j]); 
+                currentOp = null;
+                
+            }else{ 0
+                if(!isNaN(calc[j])||calc[j]=="+"||calc[j]=="-"||calc[j]=="*"||calc[j]=="/"||calc[j]=="^"){
+                newCalc.push(calc[j]); 
+                }
+            }
+            if(newCalc[0]=="+"){
+                newCalc.shift();
+            }
+        } 
+        calc = newCalc; 
+        newCalc = []; 
+        
+    }
+
+    if(calc.length > 1){ 
+        console.log('Error: I can\'t resolve it'); 
+        return calc; 
+    }else{ 
+        let extract = calc[0];
+        let str=extract.toString();
+        let calcRevert= [];
+        for(let i=str.length-1; i>=0; i--){
+            calcRevert.push(str[i])
+        }
+
+        var dotIndex=calcRevert.indexOf(".");
+        var eIndex=calcRevert.indexOf("e");
+        let calcCom=[];
+        let count=0;
+
+        //Coma Correction
+        for(let i=0; i<=calcRevert.length-1; i++){
+            if(dotIndex>=0){
+                var dot1=true;
+                count+=1;
+            }
+            if(dotIndex==-1){
+                var dot2=true;
+                count+=1;
+            }
+            //insert thousands separator if decimal exists
+            if(dot1 && i>dotIndex-25 && eIndex>=0){
+                if(calcRevert.length<=i){
+                    count+=1;
+                }
+                if(count==(dotIndex+5) || count==(dotIndex+8) || count==(dotIndex+11) || count==(dotIndex+14) || count==(dotIndex+17) && dotIndex<=i){
+                    calcCom.push(",", calcRevert[i]);
+                }else{
+                    calcCom.push(calcRevert[i]);
+                }
+            }
+
+            if(dot1 && i>dotIndex-5 && eIndex==-1){
+                if(calcRevert.length<=i){
+                    count+=1;
+                }
+                if(count==(dotIndex+5) || count==(dotIndex+8) || count==(dotIndex+11) || count==(dotIndex+14) || count==(dotIndex+17) && dotIndex<=i){
+                    calcCom.push(",", calcRevert[i]);
+                }else{
+                    calcCom.push(calcRevert[i]);
+                }
+            }
+
+            //insert thousands separator if decimal does't exists
+            if(dot2){
+                if(dotIndex<=i){
+                    count+=1;
+                }
+                if(count==5 || count==8 || count==11 || count==14 || count==17 && dotIndex==-1){
+                    calcCom.push(",", calcRevert[i]);
+                }else{
+                    calcCom.push(calcRevert[i]);
+                }
+            }
+        }
+        //correction of coma when there are hundreds but there aren't thousands
+        if( calcCom[calcCom.length-1]=="," ){
+            calcCom.pop();
+        }else if(calcCom[calcCom.length-1]=="-" && calcCom[calcCom.length-2]==","){
+            let slicecalcCom=calcCom.slice(0,calcCom.length-2);
+            slicecalcCom.push("-");
+            calcCom=slicecalcCom;
+        }
+
+        let resultString=calcCom.reverse().join("");
+        console.log(calcCom);
+        return resultString           
+    } 
+} 
 
 //Equal Button
-    var buttonEq = document.getElementById('buttonEq'), 
-    userInput = document.getElementById('opLine'), 
-    result = document.getElementById('resLine');
+var buttonEq = document.getElementById('buttonEq');
+var userInput = document.getElementById('opLine');
+var result = document.getElementById('resLine');
 
-    buttonEq.addEventListener('click', function() { 
-        result.innerHTML = calculate(operate(userInput.innerHTML));
-        operationComplete=true; // *1
-        
-    }); 
-
-    
-
+buttonEq.addEventListener('click', function() {    
+    result.innerHTML = calculate(operate(userInput.innerHTML));
+    operationComplete=true; // *1
+}); 
             
 // Hide/Show buttons
+let hide = document.querySelector("#hide");
+let keys = document.querySelector("#keys");
 
-    let hide = document.querySelector("#hide");
-    let keys = document.querySelector("#keys");
-    hide.addEventListener("click", function(){
+hide.addEventListener("click", function(){
     hide.style.display="none";
     keys.style.display="none";
     show.style.display="";
-    });
+});
 
-    let show = document.querySelector("#show");
+let show = document.querySelector("#show");
     show.addEventListener("click", function(){
     hide.style.display="";
     keys.style.display="";
     show.style.display="none";
-    });
+});
 
     

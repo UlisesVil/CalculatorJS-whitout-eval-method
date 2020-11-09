@@ -1,109 +1,40 @@
+@font-face {
+    font-family: 'calculator';
+    src: url('../fonts/Calculator.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body{
-text-align: center;
-align-items: center;
-align-content: center;
-align-self: center;
-background: url(../img/03.jpg);
+    text-align: center;
+    background-color: black;
 }
 
-#backcalc{
-    width: 370px;
-    height: 550px;
-    flex-direction: column;
-    display: inline-block;
-    background: url(../img/t08.png);
-    margin-top: 16px;
-    border-radius: 10px;
-    box-shadow:0px 0px 30px red;
-
-
+#main{
+    width: 400px;
+    height: 70px;
+    margin: 20px auto;
+    background-color: black;
+    color: rgb(255, 255, 255);
+    background-color:black;
+    text-shadow: 3px 3px 10px white;
+    font-family: 'calculator';
+    font-size: 25px;
 }
 
-#calculator{
-    width: 370px;
-    height: 550px;
-    flex-direction: column;
-    display: inline-block;
+h1{
+    margin: 0px;
+}
+
+#show{
+    display: block;
+    margin: 0px auto 30px;
+    margin-top: 15px;
+    padding: 6px;
+    color:rgba(218, 0, 0, 0.726);
     background-color: rgba(0, 0, 0, 0.432);
-    border-radius: 10px;
-}
-
-#opLine{
-    display: block;
-    width: 326px;
-    height: 40px;
-    background-color: rgba(255, 255, 255, 0.836);
-    font-size: 20px;
-    text-align: right;
-    letter-spacing: 0px;
-    margin-top: 20px;
-    margin-bottom: 0px;
-    margin-left: 5px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    line-height: 60px;
-    border: 3px solid rgb(255, 255, 255);
-    box-shadow:0px 0px 30px red;
-
-
-}
-
-#resLine{
-    display: block;
-    width: 326px;
-    height: 40px;
-    background-color: rgba(255, 255, 255, 0.836);
-    font-size: 30px;
-    text-align: right;
-    letter-spacing: 0px;
-    margin-top: 2px;
-    margin-bottom: 5px;
-    margin-left: 5px;
-    line-height: 55px;
-    border: 3px solid rgb(255, 255, 255);
-
-}
-
-#button1,
-#button2,
-#button3,
-#button4,
-#button5,
-#button6,
-#button7,
-#button8,
-#button9,
-#button0,
-#buttonDot
-{
-    background-color: rgba(128, 0, 128, 0.904);
-    border-radius: 5px;
-    width: 80px;
-    height: 80px;
-    color: white;
-}
-
-#buttonClear,
-#buttonPN,
-#buttonPer,
-#buttonP,
-#buttonR,
-#buttonD,
-#buttonM,
-#buttonBack,
-#buttonEq{
-    background-color: rgba(0, 0, 0, 0.945);
-    border-radius: 5px;
-    width: 80px;
-    height: 80px;
-    color: white;
-}
-
-#numbers{
-    display: inline-block;
-    width: 340px;
-    height: 600px;
-    margin-top: 5px;
+    border-radius: 20px;
+    border: 0px;    
 }
 
 #keys{
@@ -111,16 +42,14 @@ background: url(../img/03.jpg);
     height: 300px;
     background-image:  url(../img/t03.jpg);
     background-size: cover;
-    margin-bottom: 0px;
     display: block;
     border-radius: 20px;
     box-shadow:0px 0px 30px red;
-
-margin: auto;
+    margin: 0px auto 30px;
+    border: 1px solid red;
 }
 
 h2{
-    color: white;
     margin: 0px auto;
     color: rgba(255, 0, 0, 0.438);
 }
@@ -135,7 +64,6 @@ ul{
 
 #hide{
     background-color: rgba(0, 0, 0, 0.432);
-    display: flex;
     margin: auto;
     padding: 6px;
     color:rgba(218, 0, 0, 0.726);
@@ -144,54 +72,115 @@ ul{
     box-shadow:0px 0px 30px red;
 }
 
-#main{
-    width: 400px;
-    height: 100px;
-    background-image:  url(../img/t03.jpg); /* rgba(0, 0, 0, 0.603);*/
-    background-size: cover;
-    margin: auto;
+
+#calculator{
+    width: 370px;
+    display: inline-block;
+    background-color: black;
+    box-shadow:0px 0px 30px red;
+    margin-bottom: 50px;
+}
+
+#opLine{
+    font-family: calculator;
+    font-weight: bold;
+    font-size:35px;
+    font-style: italic;
+    display: block;
+    width: 330px;
+    max-height: auto;
+    background-color: rgba(0, 0, 0, 0.836);
+    text-align: right;
+    letter-spacing: 2px;
+    margin-top: 20px;
     margin-bottom: 0px;
-    display: block;
-    border-radius: 20px;
+    margin-left: 5px;
+    padding: 10px 5px;
+    line-height: 27px;
     box-shadow:0px 0px 30px red;
-    color: rgb(0, 161, 67);
-    text-align: center;
-    padding-top: 15px;
-}
-#show{
-    background-color: rgba(0, 0, 0, 0.432);
-    display: block;
-    margin: auto;
-    margin-top: 15px;
-    padding: 6px;
-    color:rgba(218, 0, 0, 0.726);
-    border-radius: 20px;
-    border: 0px;
-    box-shadow:0px 0px 30px red;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    color: white;
 }
 
-#buttonClear:hover,
-#buttonPer:hover,
-#buttonM:hover,
-#buttonBack:hover,
-#button7:hover,
-#button8:hover,
-#button9:hover,
-#buttonP:hover,
-#button4:hover,
-#button5:hover,
-#button6:hover,
-#buttonR:hover,
-#button1:hover,
-#button2:hover,
-#button3:hover,
-#buttonD:hover,
-#button0:hover,
-#buttonDot:hover,
-#buttonPN:hover,
-#buttonEq:hover{
-background-color: rgba(0, 17, 255, 0);
-box-shadow:0px 0px 50px rgb(0, 250, 84);
-font-size: 30px;
-border:0px;
+#resLine{
+    font-family: calculator;
+    font-weight: bold;
+    font-size:35px;
+    font-style: italic;
+    display: block;
+    width: 330px;
+    max-height: auto;
+    background-color: rgba(0, 0, 0, 0.836);
+    text-align: right;
+    letter-spacing: 0px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 10px 10px 10px 0px;
+    line-height: 27px;
+    box-shadow:0px 0px 30px red;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    color: white;
+}
+
+#numbers{
+    display: inline-block;
+    width: 340px;
+    height: auto;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.line{
+width: 100%;
+height: 90px;
+}
+
+#line1{
+    margin-top: 10px;
+}
+
+#button0, #button1, #button2, #button3, 
+#button4, #button5, #button6, #button7, 
+#button8, #button9, #buttonDot{
+    background-color: rgba(0, 0, 0, 0.904);    
+}
+
+#buttonClear, #buttonPer, #buttonM, #buttonBack, 
+#buttonP, #buttonR, #buttonD{
+    background-color: rgba(34, 34, 34, 0.945);
+}
+
+#buttonEq{    
+    width: 161px;
+    height: 80px;
+    background-color: rgb(204, 1, 1);
+    border-bottom: 2px solid gray;    
+    color: white;
+}
+
+.buttons{
+    width: 77px;
+    height: 80px;
+    margin-top: 5px;
+    margin-right: 3px;
+    font-size: 20px;
+    border: 0px;
+    border-bottom: 1px solid red;
+    color: red;
+    transition: all 500ms;
+}
+
+.buttons:hover{
+    background-color: rgba(0, 17, 255, 0);
+    box-shadow:3px 3px 20px rgb(224, 0, 0),
+             -3px -3px 20px rgb(224, 0, 0);
+    font-size: 30px;
+    border:0px;
+    margin: 0px;
+    padding: 0px;
+    color: white;
 }
