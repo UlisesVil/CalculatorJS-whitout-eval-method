@@ -35,7 +35,6 @@ let typing = text =>{
         
         opLine.innerHTML = resLine.innerHTML;
         operationComplete = false;
-        
     }
 
     if(operationComplete && !isNaN(text)){   //*1
@@ -88,7 +87,7 @@ buttons.addEventListener("click", e =>{
             break;
         }
     }
-})
+});
 
 
 // Keys control
