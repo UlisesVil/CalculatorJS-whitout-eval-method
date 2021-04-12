@@ -10,7 +10,7 @@ const last = () => opLine.innerHTML.substring(opLine.innerHTML.length-1);
 opLine.innerHTML="+";
 resLine.innerHTML=0;
 
-//Write Numbers
+//Writing Numbers
 let typing = text =>{
     if(opLine.innerHTML == "+" && text==".") opLine.innerHTML += "0.";
     if(opLine.innerHTML == "+" && text=="-") opLine.innerHTML == "-";
@@ -22,7 +22,7 @@ let typing = text =>{
     }
 
     if(operationComplete && isNaN(text)){   //*1
-        //remove comas after operate to operate again
+        //remove comas after operate
         let extractComa=[];
         for(let i=0; i<=resLine.innerHTML.length-1; i++){
             if(resLine.innerHTML[i]!=","){
@@ -32,22 +32,21 @@ let typing = text =>{
 
         let noComa=extractComa.join("");
         resLine.innerHTML=noComa;
-        
         opLine.innerHTML = resLine.innerHTML;
         operationComplete = false;
     }
 
-    if(operationComplete && !isNaN(text)){   //*1
+    if(operationComplete && !isNaN(text)){
         opLine.innerHTML="+";
         resLine.innerHTML= "0";
         operationComplete = false;
     }
 
     if(isNaN(last()) && isNaN(text)){
-        opLine.innerHTML=opLine.innerHTML.substring(0,opLine.innerHTML.length-1)
+        opLine.innerHTML=opLine.innerHTML.substring(0,opLine.innerHTML.length-1);
     }
     //input character restrictor
-    if(opLine.innerHTML.length>100){
+    if(opLine.innerHTML.length>17){
         text=""
         opLine.innerHTML+=text;
     }
@@ -72,17 +71,18 @@ function clear (){
 
 //Buttons action press
 buttons.addEventListener("click", e =>{
-    if(e.target.innerHTML !== ""){
+    let key = e.target.innerHTML;
+    let keys = "0123456789/-+*^CBS=."
+    let findIndex = keys.indexOf(key);
+    if(e.target.innerHTML !== "" && findIndex>-1){
         switch (e.target.innerHTML){
             case "C":  clear(); 
             break;
-            case "+/-":  changeSign(); 
-            break;
             case "BS":  backSpace(); 
             break;
-            case "=":  "";  //it's empty because we don't want to write it in the opLine
+            case "=":  "";
             break;       
-            case ".": dot();
+            case ".": dot(); //this was dot()
             default: typing(e.target.innerHTML); 
             break;
         }
@@ -99,22 +99,18 @@ for (var i = 0; i < buttons2.length; i++) {
 }
 
 let newarray=array_de_strings.join(', ');
-
 function playkey(e){
     let key2=String.fromCharCode(e.keyCode);
     let busqueda = array_de_strings.find(element=> element == key2);
-
     if(busqueda !== undefined){
         switch (busqueda){
             case "C":  clear(); 
             break;
-            case "+/-":  changeSign(); 
-            break;
             case "BS":  backSpace(); 
             break;
-            case "=":  "";   //it's empty because its function is in operate() and interfere in *1
+            case "=":  "";
             break;        
-            case ".": dot2();
+            case ".": dot();
             default: typing(busqueda); 
             break;
         }
@@ -126,7 +122,7 @@ function playkey(e){
 
     if( String.fromCharCode(e.keyCode)==buttonEq.innerHTML || e.keyCode=="13"){
         result.innerHTML = calculate(operate(userInput.innerHTML));
-        operationComplete=true; // *1
+        operationComplete=true;
     }
 
     if( String.fromCharCode(e.keyCode)=="c"){
@@ -134,58 +130,33 @@ function playkey(e){
     }   
 }
 window.addEventListener("keypress",playkey);
-/*window.addEventListener("keyup",playkey);*/
 
-
-// Function Dot Key
-function dot2(){
-    
-    if(opLine.innerHTML.length > 0) {
-        let lastdig = opLine.innerHTML[opLine.innerHTML.length - 1];
-        let array = opLine.innerHTML.split(' ');
-
-        if( lastdig == '+' || lastdig == '-' || lastdig == '*'|| lastdig == '/'|| lastdig == '^'|| lastdig == '('|| lastdig == ')') {
-            opLine.innerHTML += '0.';
-        }else if(array[array.length - 1].indexOf('.') == -1) {
-            opLine.innerHTML += '.';
-        }  
-    
-    }else{
-        opLine.innerHTML += '0.'
-    }
-}
 
 // Function Dot Button       
 function dot(){
-    let dot = document.querySelector('#buttonDot');
-
-    dot.addEventListener('click', () => {
-        if(opLine.innerHTML.length > 0) {
-            let lastdig = opLine.innerHTML[opLine.innerHTML.length - 1];
-            let array = opLine.innerHTML.split(' ');
-            let regexStart=/^\W{1}?\d{0,20}\.?\d{0,20}/g;
-            let resultS= regexStart.test(opLine.innerHTML);
-            if ( lastdig == '+' || lastdig == '-' || lastdig == '*'|| lastdig == '/'|| lastdig == '^'|| lastdig == '('|| lastdig == ')') {
-                opLine.innerHTML += '0.';
-            } else if (array[array.length - 1].indexOf('.') == -1) {
-                opLine.innerHTML += '.';
-            }else if (resultS) {
-                let array = opLine.innerHTML.split(' ');
-                opLine.innerHTML = array[0];
-            }	
-        }else {
+    if(opLine.innerHTML.length > 0) {
+        let lastdig = opLine.innerHTML[opLine.innerHTML.length - 1];
+        let array = opLine.innerHTML.split(' ');
+        let regexStart=/^\W{1}?\d{0,20}\.?\d{0,20}/g;
+        let resultS= regexStart.test(opLine.innerHTML);
+        if ( lastdig == '+' || lastdig == '-' || lastdig == '*'|| lastdig == '/'|| lastdig == '^'|| lastdig == '('|| lastdig == ')') {
             opLine.innerHTML += '0.';
-        }
-    });
+        } else if (array[array.length - 1].indexOf('.') == -1) {
+            opLine.innerHTML += '.';
+        }else if (resultS) {
+            let array = opLine.innerHTML.split(' ');
+            opLine.innerHTML = array[0];
+        }	
+    }else {
+        opLine.innerHTML += '0.';
+    } 
 }
 
 //Back Spase
 function backSpace(){
     let array= opLine.innerHTML.split("");
     array.pop();
-
     let newarray= array.join("");
-
     opLine.innerHTML=newarray;
 }
 
@@ -208,9 +179,7 @@ function operate(userV) {
     } 
     if(current != '') { 
         calculation.push(parseFloat(current)); 
-    } 
-console.log(calculation);
-console.log(current);
+    }
     return calculation;
 }
 
@@ -223,16 +192,13 @@ function calculate(calc){
         ];
     var newCalc = [];
     var currentOp;
-
     for(var i=0; i<ops.length; i++){ 
         for(var j = 0; j < calc.length; j++){ 
             if(ops[i][calc[j]]) { 
                 currentOp = ops[i][calc[j]];
-                
             }else if(currentOp) { 
                 newCalc[newCalc.length - 1] = currentOp(newCalc[newCalc.length - 1], calc[j]); 
                 currentOp = null;
-                
             }else{ 0
                 if(!isNaN(calc[j])||calc[j]=="+"||calc[j]=="-"||calc[j]=="*"||calc[j]=="/"||calc[j]=="^"){
                 newCalc.push(calc[j]); 
@@ -244,7 +210,6 @@ function calculate(calc){
         } 
         calc = newCalc; 
         newCalc = []; 
-        
     }
 
     if(calc.length > 1){ 
@@ -257,7 +222,6 @@ function calculate(calc){
         for(let i=str.length-1; i>=0; i--){
             calcRevert.push(str[i])
         }
-
         var dotIndex=calcRevert.indexOf(".");
         var eIndex=calcRevert.indexOf("e");
         let calcCom=[];
@@ -271,7 +235,6 @@ function calculate(calc){
             }
             if(dotIndex==-1){
                 var dot2=true;
-                count+=1;
             }
             //insert thousands separator if decimal exists
             if(dot1 && i>dotIndex-25 && eIndex>=0){
@@ -284,7 +247,6 @@ function calculate(calc){
                     calcCom.push(calcRevert[i]);
                 }
             }
-
             if(dot1 && i>dotIndex-5 && eIndex==-1){
                 if(calcRevert.length<=i){
                     count+=1;
@@ -295,13 +257,12 @@ function calculate(calc){
                     calcCom.push(calcRevert[i]);
                 }
             }
-
-            //insert thousands separator if decimal does't exists
+            //insert thousands separator if decimal doesn't exists
             if(dot2){
-                if(dotIndex<=i){
+                if(dotIndex<i){
                     count+=1;
                 }
-                if(count==5 || count==8 || count==11 || count==14 || count==17 && dotIndex==-1){
+                if(count==4 || count==7 || count==10 || count==13 || count==16 && dotIndex==-1){
                     calcCom.push(",", calcRevert[i]);
                 }else{
                     calcCom.push(calcRevert[i]);
@@ -316,9 +277,7 @@ function calculate(calc){
             slicecalcCom.push("-");
             calcCom=slicecalcCom;
         }
-
         let resultString=calcCom.reverse().join("");
-        console.log(calcCom);
         return resultString           
     } 
 } 
@@ -336,13 +295,11 @@ buttonEq.addEventListener('click', function() {
 // Hide/Show buttons
 let hide = document.querySelector("#hide");
 let keys = document.querySelector("#keys");
-
 hide.addEventListener("click", function(){
     hide.style.display="none";
     keys.style.display="none";
     show.style.display="";
 });
-
 let show = document.querySelector("#show");
     show.addEventListener("click", function(){
     hide.style.display="";

@@ -3,19 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="ico2.svg" />
     <title>Calculator</title>
-
 <link rel="stylesheet" href="css/styles.css">
-
+<script type="text/javascript" src="js/calculator.js" defer></script>
 </head>
 <body>
-
     <div id="main">
         <h1>BASIC CALCULATOR</h1>
     </div>
-
     <button id="show">Show Key Info</button>
-
     <div id="keys" style="display: none;">
         <p id="p1">
             <h2>Keys</h2>
@@ -31,7 +28,6 @@
             <li>Division:</li>
             <li>Power:</li>
             <li>Dot:</li>
-
         </ul>
         <ul>
             <li>letter " B "</li>
@@ -45,20 +41,16 @@
             <li>key " ^ "</li>
             <li>key " . "</li>
         </ul>
-        
         <button id="hide">
             Hide Key info
         </button>
     </div>
 
     <div id="backcalc">
-
         <div id="calculator">        
             <div id="numbers">
-
                 <p id="opLine"></p>
                 <p id="resLine"></p>
-                
                 <div class="line" id="line1">
                     <button data-key="67" class="buttons" id="buttonClear">C</button>
                     <button data-key="80" class="buttons" id="buttonPer">^</button>
@@ -86,13 +78,10 @@
                 <div class="line">
                     <button data-key="96" class="buttons" id="button0">0</button>
                     <button data-key="110" class="buttons" id="buttonDot">.</button>
-                    <!--<button data-key="83" class="buttons" id="buttonPN">NA</button>-->
                     <button data-key="13" class="buttons" id="buttonEq">=</button>
                 </div>
             </div>
         </div>
     </div>
-
-    <script type="text/javascript" src="js/calculator.js"></script>
 </body>
 </html>
